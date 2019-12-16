@@ -1,24 +1,19 @@
 package main
 
 import (
+	"github.com/marcosvilagash/go-tests-lagash/api-rest-go/viewmodel"
 	"html/template"
 	"log"
 	"net/http"
 )
-
-// Context is the page context
-type Context struct {
-	Title       string
-	Description string
-}
 
 func main() {
 	templates := populateTemplates()
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		requestedFile := r.URL.Path[1:]
 		t := templates.Lookup(requestedFile + ".html")
+		ctx := viewmodel.CreateBase()
 		if t != nil {
-			ctx := Context{Title: "Hola", Description: "Mundo"}
 			err := t.Execute(w, ctx)
 			if err != nil {
 				log.Println(err)
