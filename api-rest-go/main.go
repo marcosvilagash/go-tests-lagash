@@ -8,10 +8,8 @@ import (
 
 // Context is the page context
 type Context struct {
-	Fecha        string `json:"date"`
-	DolarOficial string `json:"officialdolar"`
-	DolarBlue    string `json:"bluedollar"`
-	Variacion    string `json:"variation"`
+	Title       string
+	Description string
 }
 
 func main() {
@@ -20,7 +18,7 @@ func main() {
 		requestedFile := r.URL.Path[1:]
 		t := templates.Lookup(requestedFile + ".html")
 		if t != nil {
-			ctx := Context{Fecha: "mandale el parametro"}
+			ctx := Context{Title: "Hola", Description: "Mundo"}
 			err := t.Execute(w, ctx)
 			if err != nil {
 				log.Println(err)
